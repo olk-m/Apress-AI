@@ -24,7 +24,7 @@ def main():
     if sys.argv[1] == "data":
         for i in range(n):
             C[i].insert(0, "P" + str(i))
-        C.insert(0, [""] + header)
+        C.insert(0, ["", *header])
         tableutils.printmat(C)
     elif sys.argv[1] == "run":
         rc, Value, Path, Cost, Cumul = solve_model(C)

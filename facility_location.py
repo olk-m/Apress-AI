@@ -4,16 +4,16 @@ from random import randint
 def gen_dcost(m, n):
     R = []
     S = 0
-    for i in range(m):
+    for _i in range(m):
         RR = []
-        for j in range(n):
+        for _j in range(n):
             RR.append(randint(10, 30))
         RR.append(randint(500, 700))
         R.append(RR)
         S += RR[-1]
     A = S / n
     RR = []
-    for i in range(n):
+    for _i in range(n):
         RR.append(randint(int(0.5 * A), int(0.75 * A)))
     RR.append(0)
     R.append(RR)

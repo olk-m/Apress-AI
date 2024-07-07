@@ -27,10 +27,7 @@ def solve_model(D, deg=1, objective=0):
     for i in range(n):
         s.Add(u[i] <= e)
         s.Add(v[i] <= e)
-    if objective:
-        Cost = e
-    else:
-        Cost = sum(u[i] + v[i] for i in range(n))
+    Cost = e if objective else sum(u[i] + v[i] for i in range(n))
     s.Minimize(Cost)
     rc = s.Solve()
     return rc, ObjVal(s), SolVal(a)

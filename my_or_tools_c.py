@@ -17,7 +17,7 @@ def k_out_of_n(solver, k, x, rel="=="):
             else:
                 solver.Add(x[i] >= x[i].Lb() * l[i])
     S = sum(l[i] for i in range(n))
-    if rel == "==" or rel == "=":
+    if rel in ("==", "="):
         solver.Add(k == S)
     elif rel == ">=":
         solver.Add(k <= S)
@@ -115,7 +115,7 @@ def maximax(s, a, x, b):
     d = [bounds_on_box(a[i], x, b[i]) for i in range(n)]
     zbound = [min(d[i][0] for i in range(n)), max(d[i][1] for i in range(n))]
     z = s.NumVar(zbound[0], zbound[1], "")
-    delta = [reify(s, a[i] + [-1], x + [z], b[i], None, "==") for i in range(n)]
+    delta = [reify(s, a[i] + [-1], [*x, z], b[i], None, "==") for i in range(n)]
     k_out_of_n(s, 1, delta)
     s.Maximize(z)
     return z, delta

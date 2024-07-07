@@ -32,7 +32,7 @@ def main():
         Cost = 0.0
         T = []
         for i in range(n + 2):
-            T = T + [[0] * (2 + m)]
+            T = [*T, [0] * (2 + m)]
         for i in range(n):
             for j in range(m):
                 T[i][j] = round(G[i][j], 2)

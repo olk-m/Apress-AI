@@ -2,7 +2,7 @@ from random import choice, randint
 
 
 def compute_weeks(T, P):
-    nbTeams = sum([1 for sub in T for e in sub])
+    sum([1 for sub in T for e in sub])
     nbIntra = P[0]
     nbInter = P[1]
     nbPerWeek = P[2]
@@ -21,10 +21,10 @@ def compute_weeks(T, P):
 
 def gen_data(m, n):
     R, team = [], 0
-    for i in range(m):
+    for _i in range(m):
         RR = []
         nb = choice(n)
-        for j in range(nb):
+        for _j in range(nb):
             RR.append(team)
             team = team + 1
         R.append(RR)
@@ -123,7 +123,7 @@ def add_games_bound(s, nbWeeks, nbTeams, nbPerWeek, x):
 
 
 def add_objective(s, Teams, nbWeeks, x, nbIntra, nbPerWeek):
-    Value = [
+    return [
         x[i][j][w]
         for Div in Teams
         for i in Div
@@ -131,7 +131,6 @@ def add_objective(s, Teams, nbWeeks, x, nbIntra, nbPerWeek):
         for w in range(nbWeeks - len(Div) * nbIntra // nbPerWeek, nbWeeks)
         if i < j
     ]
-    return Value
 
 
 def basic_model(
@@ -152,7 +151,7 @@ def solve_model_big(Teams, params):
     (nbIntra, nbInter, nbPerWeek, nbWeeks) = params
     nbTeams = sum([1 for sub in Teams for e in sub])
     nbDiv, cuts = len(Teams), []
-    for iter in range(2):
+    for _iter in range(2):
         s = newSolver("Sports schedule", False)
         x = [
             [

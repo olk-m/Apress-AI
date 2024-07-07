@@ -27,8 +27,8 @@ def main():
             T[nutrient] = T[nutrient] + solution[food] * table[food][nutrient]
     for i in range(nbnutrients):
         T[i] = int(round(T[i], 0))
-    T = T + ["", "", round(C, 2), ""]
-    table = table + [T]
+    T = [*T, "", "", round(C, 2), ""]
+    table = [*table, T]
     for i in range(nbfoods):
         table[i] = table[i] + [round(solution[i], 2)]
 

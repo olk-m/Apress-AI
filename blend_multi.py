@@ -4,14 +4,11 @@ from random import randint
 def gen_data_content(m, n):
     # Oils down, acids accross (more oils than acids  m > n)
     R = []
-    for i in range(m):
+    for _i in range(m):
         RR = []
         P = 100
-        for j in range(n - 1):
-            if P > 1:
-                acid = randint(1, min(70, P)) * randint(0, 1)
-            else:
-                acid = 0
+        for _j in range(n - 1):
+            acid = randint(1, min(70, P)) * randint(0, 1) if P > 1 else 0
             RR.append(acid)
             P -= acid
         RR.append(P)
@@ -26,10 +23,7 @@ def gen_data_target(C):
     P = 100
     R = [0 for j in range(n)]
     for i in range(m - 1):
-        if P:
-            f = randint(1, min(20, P))
-        else:
-            f = 0
+        f = randint(1, min(20, P)) if P else 0
         F.append(f)
         P -= f
         for j in range(n):
@@ -49,9 +43,9 @@ def gen_data_target(C):
 def gen_data_cost(m, k):
     # Oils down, months accross
     R = []
-    for i in range(m):
+    for _i in range(m):
         RR = []
-        for j in range(k):
+        for _j in range(k):
             cost = randint(100, 200)
             RR.append(cost)
         R.append(RR)
@@ -61,7 +55,7 @@ def gen_data_cost(m, k):
 def gen_data_inventory(m):
     # Oils down
     R = []
-    for i in range(m):
+    for _i in range(m):
         cost = [randint(0, 200)]
         R.append(cost)
     return R

@@ -4,7 +4,7 @@ from random import randint
 
 def gen_data(n):
     R, T = [], 0
-    for i in range(n):
+    for _i in range(n):
         RR = [randint(6, 10), randint(200, 500)]
         T += RR[0] * RR[1]
         R.append(RR)
@@ -16,7 +16,7 @@ from my_or_tools import ObjVal, SolVal, newSolver
 
 def solve_model(D, W, symmetry_break=False, knapsack=True):
     s = newSolver("Bin Packing", True)
-    nbC, nbP = len(D), sum([P[0] for P in D])
+    nbC, _nbP = len(D), sum([P[0] for P in D])
     w = [e for sub in [[d[1]] * d[0] for d in D] for e in sub]
     nbT, nbTmin = bound_trucks(w, W)
     x = [[[s.IntVar(0, 1, "") for _ in range(nbT)] for _ in range(d[0])] for d in D]

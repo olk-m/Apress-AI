@@ -64,7 +64,7 @@ def solve_model(C, D=None, Z=False):
 def solve_all_pairs(D, sources=None):
     n, C = len(D), []
     if sources is None:
-        sources = [i for i in range(n)]
+        sources = list(range(n))
     for node in sources:
         C0 = [
             [0 if n in [i, j] else D[i][j] for j in range(n + 1)] for i in range(n + 1)
@@ -84,7 +84,7 @@ def solve_all_pairs(D, sources=None):
                 if source != target:
                     Path, Cost, node = [target], 0, target
                     while Path[0] != source and len(Path) < n:
-                        v = [j for j in range(n) if x[ix][j][node] >= 0.1][0]
+                        v = next(j for j in range(n) if x[ix][j][node] >= 0.1)
                         Path.insert(0, v)
                         Cost += D[v][node]
                         node = v

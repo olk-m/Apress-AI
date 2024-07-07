@@ -8,7 +8,7 @@ def gen_data(m, n):
         R = []
         All = [0 for i in range(n)]
         p = 0.8
-        for i in range(m):
+        for _i in range(m):
             RR = []
             for j in range(n):
                 if uniform(0, 1) > p:

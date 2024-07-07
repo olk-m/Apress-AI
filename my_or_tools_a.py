@@ -16,7 +16,7 @@ def SolVal(x):
             0
             if x is None
             else x
-            if isinstance(x, (int, float))
+            if isinstance(x, int | float)
             else x.SolutionValue()
             if x.Integer() is False
             else int(x.SolutionValue())

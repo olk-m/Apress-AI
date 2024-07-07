@@ -10,7 +10,6 @@ def gen_data(n):
     points = [(randint(1, 1000), randint(1, 1000)) for i in range(n)]
     points.sort()
     R = []
-    S = 0
     for i in range(n):
         RR = []
         for j in range(n):
@@ -51,7 +50,7 @@ def solve_model(D, Start=None, End=None):
     rc = s.Solve()
     Path, Cost, Cumul, node = [Start], [0], [0], Start
     while rc == 0 and node != End and len(Path) < n:
-        next = [i for i in range(n) if SolVal(G[node][i]) == 1][0]
+        next = next(i for i in range(n) if SolVal(G[node][i]) == 1)
         Path.append(next)
         Cost.append(D[node][next])
         Cumul.append(Cumul[-1] + Cost[-1])

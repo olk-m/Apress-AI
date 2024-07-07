@@ -20,7 +20,9 @@ def gen_data(n):
 from my_or_tools import ObjVal, SolVal, newSolver
 
 
-def solve_model_eliminate(D, Subtours=[]):
+def solve_model_eliminate(D, Subtours=None):
+    if Subtours is None:
+        Subtours = []
     s, n = newSolver("TSP", True), len(D)
     x = [
         [s.IntVar(0, 0 if D[i][j] is None else 1, "") for j in range(n)]
@@ -52,7 +54,7 @@ def solve_model_eliminate(D, Subtours=[]):
 def extract_tours(R, n):
     node, tours, allnodes = 0, [[0]], [0] + [1] * (n - 1)
     while sum(allnodes) > 0:
-        next = [i for i in range(n) if R[node][i] == 1][0]
+        next = next(i for i in range(n) if R[node][i] == 1)
         if next not in tours[-1]:
             tours[-1].append(next)
             node = next
@@ -84,7 +86,7 @@ def solve_model_p(D):
 def solve_model_star(D):
     import shortest_path
 
-    n = len(D)
+    len(D)
     Paths, Costs = shortest_path.solve_all_pairs(D)
     rc, Value, tour = solve_model(Costs)
     Tour = []

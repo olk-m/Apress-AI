@@ -35,7 +35,7 @@ def main():
         while count < 10 and len(tours) != 1:
             rc, Value, tours = solve_model_eliminate(C, subtours)
             subtours.extend(tours)
-            display.append([f"{count}-({int(Value)})"] + [tour for tour in tours])
+            display.append([f"{count}-({int(Value)})", *list(tours)])
             count += 1
         display.insert(0, ["Iter (value)", "Tour(s)"])
         for row in display:
@@ -55,7 +55,7 @@ def main():
         tableutils.printmat(T, True)
     elif sys.argv[1] == "path":
         rc, Value, path = solve_model_p(C)
-        T = [["Nodes"] + path]
+        T = [["Nodes", *path]]
         Cost = ["Distance", 0]
         Tcost = ["Cumulative", 0]
         for i in range(n - 1):

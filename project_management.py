@@ -3,7 +3,6 @@ from random import randint
 
 def gen_data(n):
     R = []
-    S = 0
     for i in range(n):
         RR = [i]  # Task number
         RR.append(randint(2, 8))  # Duration

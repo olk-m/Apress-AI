@@ -4,7 +4,7 @@ from random import randint, sample
 def gen_data(m, n):
     # m is number of jobs, n is the number of machines
     R = []
-    for j in range(m):
+    for _j in range(m):
         p = list(range(n))
         p = sample(p, len(p))
         RR = []

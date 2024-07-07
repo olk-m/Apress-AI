@@ -23,9 +23,9 @@ def main():
             )
         )
     elif sys.argv[1] == "run":
-        start = time.clock()
+        time.clock()
         rc, nb, rolls, w = solve_model(C)
-        end = time.clock()
+        time.clock()
         if rc != 0:
             print("Infeasible")
         else:
@@ -47,9 +47,9 @@ def main():
             )
     elif sys.argv[1] == "large":
         # C = [[44, 81], [3,70],[48,68]]
-        start = time.clock()
+        time.clock()
         rc, C, y, rolls = solve_large_model(C)
-        end = time.clock()
+        time.clock()
         nb = len(rolls)
         # tableutils.printmat(C)
         # tableutils.printmat([y])

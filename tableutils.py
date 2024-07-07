@@ -10,22 +10,18 @@ def set2string(S):
     if S is not None:
         for i in range(len(S)):
             s = s + str(S[i])
-            if i < len(S) - 1:
-                s = s + "; "
-            else:
-                s = s + " "
-    s = s + "}"
-    return s
+            s = s + "; " if i < len(S) - 1 else s + " "
+    return s + "}"
 
 
 def wrapmat(M, left, header):
     T = copy.deepcopy(M)
-    m, n = len(T), len(T[0])
+    _m, _n = len(T), len(T[0])
     for i in range(len(left)):
         T[i].insert(0, left[i])
-    if header != None:
+    if header is not None:
         if len(header) < len(T[0]):
-            T.insert(0, [""] + header)
+            T.insert(0, ["", *header])
         else:
             T.insert(0, header)
     return T
@@ -37,10 +33,7 @@ def formatmat(M, zeroes=False, decimals=4):
         for j in range(len(M[i])):
             el = T[i][j]
             if type(el) == int:
-                if el or zeroes:
-                    el = f"{el:4d}"
-                else:
-                    el = ""
+                el = f"{el:4d}" if el or zeroes else ""
                 T[i][j] = el
             elif type(el) == float:
                 if el or zeroes:
@@ -65,7 +58,6 @@ def formatmat(M, zeroes=False, decimals=4):
 
 def printmat(M, zeroes=False, decimals=4):
     T = formatmat(M, zeroes, decimals)
-    output = []
     for row in T:
         l = ""
         for i in range(len(row)):

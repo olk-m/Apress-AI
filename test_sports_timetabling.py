@@ -48,7 +48,7 @@ def main():
             print("Infeasible")
         else:
             R = [["Week", "Matches"]]
-            nbWeeks = T[3]
+            T[3]
             week = 0
             for matches in Cal:
                 RR = []

@@ -11,7 +11,7 @@ def main():
     a = [[0, 1], [1, 0]]
     b = [4, 5]
     x = [s.IntVar(0, 10, "x[%i]" % i) for i in range(2)]
-    bounds, delta, gamma = [], [], []
+    bounds, delta, _gamma = [], [], []
     for j in range(len(a)):
         bounds.append(bounds_on_box(a[j], x, b[j]))
         d = reify_force(s, a[j], x, b[j], rel="==")
@@ -42,7 +42,7 @@ def main():
     a = [[0, 1], [1, 0]]
     b = [4, 5]
     x = [s.IntVar(0, 10, "x[%i]" % i) for i in range(2)]
-    bounds, delta, gamma = [], [], []
+    bounds, delta, _gamma = [], [], []
     for j in range(len(a)):
         bounds.append(bounds_on_box(a[j], x, b[j]))
         d = reify_raise(s, a[j], x, b[j], rel="==")
@@ -77,7 +77,7 @@ def main():
     b = [4, 5]
     x = [s.IntVar(0, 10, "x[%i]" % i) for i in range(2)]
     q = [s.IntVar(0, 1, "") for _ in range(2)]
-    bounds, delta, gamma = [], [], []
+    bounds, delta, _gamma = [], [], []
     for j in range(len(a)):
         bounds.append(bounds_on_box(a[j], x, b[j]))
         d = reify(s, a[j], x, b[j], rel="==")

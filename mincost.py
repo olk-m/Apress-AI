@@ -4,9 +4,9 @@ from random import randint
 def gen_data(m, n):
     R = []
     S = 0
-    for i in range(m):
+    for _i in range(m):
         RR = []
-        for j in range(n):
+        for _j in range(n):
             yesno = 1 - randint(0, 1) * randint(0, 1)
             RR.append(randint(10, 30) * yesno)
         RR.append(randint(500, 700))
@@ -14,7 +14,7 @@ def gen_data(m, n):
         S += RR[-1]
     A = S / n
     RR = []
-    for i in range(n):
+    for _i in range(n):
         RR.append(randint(int(0.75 * A), int(1.1 * A)))
     RR.append(0)
     R.append(RR)

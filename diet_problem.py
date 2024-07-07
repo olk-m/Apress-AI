@@ -16,8 +16,8 @@ def gen_diet_problem(nb_foods=5, nb_nutrients=4):
         b = sum([x[i] * data[i][j] for i in range(nb_foods)])
         MinNutrient[j] = randint(0, b)
         MaxNutrient[j] = randint(b, 2 * b)
-    data.append(MinNutrient + ["", "", "", ""])
-    data.append(MaxNutrient + ["", "", "", ""])
+    data.append([*MinNutrient, "", "", "", ""])
+    data.append([*MaxNutrient, "", "", "", ""])
     return data
 
 

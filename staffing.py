@@ -6,7 +6,7 @@ def gen_data(m, n, n0):
     R = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
     for i in range(m):  # Staffing needs
         R[i][-1] = randint(10, 20)
-    n1 = n - n0  # Part-time
+    n - n0  # Part-time
     d0 = int(round(m / n0) + 1)  # Full-time shift
     d1 = int(round(d0 / 2))  # Part-time shift
     for j in range(n0):  # Pay for full-time-shift

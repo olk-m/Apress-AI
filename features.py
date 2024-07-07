@@ -11,7 +11,7 @@ def inner(a, b):
 def gen_features(n, m):
     # Generating n vectors of m features linearly separable
     a = gen_hyperplane(m)
-    A, B, i = [], [], 0
+    A, B, _i = [], [], 0
     while len(A) < n:
         x = [randint(-10, 10) for _ in range(m)]
         if inner(a[0:m], x) < a[m] - 1:

@@ -11,7 +11,7 @@ def main():
         N.append(n)
         t0 = time()
         for _ in range(X):
-            rc = solve_maxrook(n)
+            solve_maxrook(n)
         t = (time() - t0) / X
         T.append(t)
     T = [T[i] / T[0] for i in range(len(T))]

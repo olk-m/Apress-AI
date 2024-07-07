@@ -4,13 +4,10 @@ from random import randint
 def gen_data(n, convex=True):
     R = []
     SQ, SP, TP = 0, 20, 0
-    for i in range(n):
+    for _i in range(n):
         Q = randint(100, 200)
         P = randint(1, 5)
-        if convex:
-            SP1 = SP + P
-        else:
-            SP1 = SP - P
+        SP1 = SP + P if convex else SP - P
         RR = [SQ, SQ + Q, SP1, TP, TP + Q * (SP1)]
         R.append(RR)
         TP = TP + Q * (SP1)
@@ -33,8 +30,7 @@ def minimize_piecewise_linear_convex(Points, B):
     Cost = s.Sum(l[i] * Points[i][1] for i in range(n))
     s.Minimize(Cost)
     s.Solve()
-    R = [l[i].SolutionValue() for i in range(n)]
-    return R
+    return [l[i].SolutionValue() for i in range(n)]
 
 
 def minimize_non_linear(my_function, left, right, precision):
@@ -44,8 +40,8 @@ def minimize_non_linear(my_function, left, right, precision):
         points = [(left + dta * i, my_function(left + dta * i)) for i in range(n)]
         G = minimize_piecewise_linear_convex(points, left)
         x = sum([G[i] * points[i][0] for i in range(n)])
-        left = points[max(0, [i - 1 for i in range(n) if G[i] > 0][0])][0]
-        right = points[min(n - 1, [i + 1 for i in range(n - 1, 0, -1) if G[i] > 0][0])][
+        left = points[max(0, next(i - 1 for i in range(n) if G[i] > 0))][0]
+        right = points[min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))][
             0
         ]
     return x.SolutionValue()
@@ -64,8 +60,8 @@ def verbose_minimize_non_linear(my_function, left, right, precision):
         G.append(x)
         G.append(y)
         T.append(G)
-        left = points[max(0, [i - 1 for i in range(n) if G[i] > 0][0])][0]
-        right = points[min(n - 1, [i + 1 for i in range(n - 1, 0, -1) if G[i] > 0][0])][
+        left = points[max(0, next(i - 1 for i in range(n) if G[i] > 0))][0]
+        right = points[min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))][
             0
         ]
         iter = iter + 1

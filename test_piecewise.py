@@ -34,7 +34,7 @@ def main():
         Data = [(C[i][0], C[i][3]) for i in range(n)]
         Data.append((C[n - 1][1], C[n - 1][4]))
         G = minimize_piecewise_linear_convex(Data, B)
-        G = [[i for i in range(n + 1)], G]
+        G = [list(range(n + 1)), G]
         G[0].append("Solution")
         G[1].append(r"\sum \delta=" + str(sum(G[1][i] for i in range(n + 1))))
         G.append([Data[i][0] for i in range(n + 1)])
@@ -51,7 +51,7 @@ def main():
         Data.append((C[n - 1][1], C[n - 1][4]))
         rc, G, H = minimize_piecewise_linear(Data, B)
         if rc == 0:
-            G = [[i for i in range(n + 1)], G]
+            G = [list(range(n + 1)), G]
             G[0].append("Solution")
             G[1].append(r"\sum \lambda=" + str(sum(G[1][i] for i in range(n + 1))))
             G.append([Data[i][0] for i in range(n + 1)])
@@ -68,7 +68,7 @@ def main():
     elif sys.argv[1] == "non":
         G = verbose_minimize_non_linear(my_function, 2, 8, 0.05)
         m = len(G)
-        G.insert(0, ["Interval"] + [i for i in range(len(G[0]))])
+        G.insert(0, ["Interval", *list(range(len(G[0])))])
         G[0].append("$x^*$")
         G[0].append("$f(x^*)$")
         for i in range(1, m, 3):

@@ -28,7 +28,7 @@ def main():
         rc, Fout, Fin, x = solve_model(C, S, T, sys.argv[1][3:4] == "1")
         tableutils.printmat(
             tableutils.wrapmat(
-                x, header, [str(int(Fout)) + "-" + str(int(Fin))] + header
+                x, header, [str(int(Fout)) + "-" + str(int(Fin)), *header]
             )
         )
 

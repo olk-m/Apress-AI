@@ -10,7 +10,7 @@ def gen_diet_problem(nb_foods=5, nb_nutrients=3):
             MinMax[i] += nutrients[i]
         minmax = [randint(0, 3), randint(3, 10)]
         cost = round(100 * uniform(0, 10)) / 100
-        v = [food] + nutrients + minmax + [cost]
+        v = [food, *nutrients, *minmax, cost]
         data.append(v)
 
     for i in range(len(MinMax)):

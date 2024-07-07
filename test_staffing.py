@@ -19,14 +19,14 @@ def main():
         random.seed(int(sys.argv[2]))
         C = gen_data(m, n, n0)
     if sys.argv[1] == "data":
-        tableutils.printmat(tableutils.wrapmat(C, left, header + ["Need"]), False, 2)
+        tableutils.printmat(tableutils.wrapmat(C, left, [*header, "Need"]), False, 2)
     elif sys.argv[1] in ["run", "runo"]:
         if sys.argv[1] == "run":
             rc, Val, x = solve_model(C, n0)
         else:
             rc, Val, x = solve_model(C, n0, None, None, True)
         tableutils.printmat(
-            tableutils.wrapmat([x], ["Nb:" + str(sum(x))], ["$" + str(Val)] + header),
+            tableutils.wrapmat([x], ["Nb:" + str(sum(x))], ["$" + str(Val), *header]),
             True,
             0,
         )

@@ -3,8 +3,7 @@ from random import randint
 
 def gen_data(n):
     R = []
-    S = 0
-    for i in range(n):
+    for _i in range(n):
         R.append([randint(1, 12), randint(5, 40)])
     return R
 
@@ -96,7 +95,7 @@ def get_new_pattern(l, w):
     Cost = sum(l[i] * a[i] for i in range(n))
     s.Maximize(Cost)
     s.Add(sum(w[i] * a[i] for i in range(n)) <= 100)
-    rc = s.Solve()
+    s.Solve()
     return SolVal(a), ObjVal(s)
 
 

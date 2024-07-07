@@ -63,7 +63,7 @@ def solve_sudoku(G):
     for i in range(n):
         row = []
         for j in range(n):
-            if G[i][j] == None:
+            if G[i][j] is None:
                 v = [s.IntVar(1, n + 1, "")] + [s.IntVar(0, 1, "") for _ in range(n)]
                 s.Add(v[0] == sum(k * v[k] for k in range(1, n + 1)))
             else:

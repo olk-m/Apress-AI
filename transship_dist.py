@@ -2,15 +2,12 @@ from random import randint
 
 
 def gen_data(n, zap=True):
-    R, Cap = [], []
+    R, _Cap = [], []
     S, D = 0, 0
     for i in range(n):
         RR = []
         for j in range(n):
-            if zap:
-                yesno = randint(0, 1)
-            else:
-                yesno = 1
+            yesno = randint(0, 1) if zap else 1
             if i != j and (i < j or randint(0, 1) * R[j][i] == 0):
                 RR.append(yesno * randint(10, 30))
             else:
@@ -22,10 +19,7 @@ def gen_data(n, zap=True):
     A = S / n
     RR = []
     for i in range(n - 1):
-        if zap:
-            yesno = 1 - (randint(0, 1) * randint(0, 1))
-        else:
-            yesno = 1
+        yesno = 1 - randint(0, 1) * randint(0, 1) if zap else 1
         T = (1 if R[i][-1] == 0 else 0) * yesno * randint(int(0.95 * A), int(1.9 * A))
         RR.append(T)
         D += T

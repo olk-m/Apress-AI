@@ -23,12 +23,12 @@ def main():
         T.append(["Total", sum(e[0] for e in D), sum(e[0] * e[1] for e in D)])
         tableutils.printmat(T, True)
     elif sys.argv[1] in ["run", "run0", "nrun", "nrun0"]:
-        start = time.clock()
+        time.clock()
         if sys.argv[1] in ["nrun", "nrun0"]:
             rc, Val, P2T, T2P = solve_model(D, S, False)
         else:
             rc, Val, P2T, T2P = solve_model(D, S, True)
-        end = time.clock()
+        time.clock()
         # print 'Elapsed time ', end-start, ' optimal value ', Val
         if rc != 0:
             print("Infeasible")

@@ -4,7 +4,7 @@ from random import randint
 def gen_data(m, n, k):
     # m is number of subsets, n is the size of universe, k is the size of each subset
     R = []
-    for i in range(m):
+    for _i in range(m):
         RR = []
         while len(RR) < k:
             p = randint(0, n)
@@ -24,7 +24,7 @@ def solve_model(D, C=None):
     S = [s.IntVar(0, 1, "") for i in range(nbRosters)]
     for j in range(nbCrew):
         s.Add(sum(S[i] for i in range(nbRosters) if j in D[i]) <= 1)
-    s.Maximize(s.Sum(S[i] * (1 if C == None else C[i]) for i in range(nbRosters)))
+    s.Maximize(s.Sum(S[i] * (1 if C is None else C[i]) for i in range(nbRosters)))
     rc = s.Solve()
     Rosters = [i for i in range(nbRosters) if S[i].SolutionValue() > 0]
     return rc, s.Objective().Value(), Rosters

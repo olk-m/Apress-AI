@@ -5,7 +5,7 @@ def gen_section(n):
     R = []
     section = 0
     for c in range(n):
-        for j in range(randint(1, 4)):
+        for _j in range(randint(1, 4)):
             RR = [section, c, randint(1, 20)]
             R.append(RR)
             section = section + 1
@@ -40,7 +40,7 @@ def gen_pairs(pp, n):
         q = 4
         c0 = 0
         RR = []
-        for j in range(q):
+        for _j in range(q):
             c0 = randint(c0, int(3 * n / q))
             c1 = randint(c0 + 1, n - 1)
             if (c0, c1) not in RR:

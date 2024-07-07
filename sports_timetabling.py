@@ -172,36 +172,30 @@ def solve_model_big(Teams, params):
                         for k in range(j + 1, nbTeams):
                             b = bounds.get((3, nbPerWeek), 1000)
                             if (
-                                sum(
-                                    [
-                                        SolVal(x[p[0]][p[1]][w])
-                                        for p in pairs([i, j, k], [])
-                                    ]
-                                )
+                                sum([
+                                    SolVal(x[p[0]][p[1]][w])
+                                    for p in pairs([i, j, k], [])
+                                ])
                                 > b
                             ):
                                 cuts.append([[i, j, k], [w, b]])
                                 for l in range(k + 1, nbTeams):
                                     b = bounds.get((4, nbPerWeek), 1000)
                                     if (
-                                        sum(
-                                            [
-                                                SolVal(x[p[0]][p[1]][w])
-                                                for p in pairs([i, j, k, l], [])
-                                            ]
-                                        )
+                                        sum([
+                                            SolVal(x[p[0]][p[1]][w])
+                                            for p in pairs([i, j, k, l], [])
+                                        ])
                                         > b
                                     ):
                                         cuts.append([[i, j, k, l], [w, b]])
                                     for m in range(l + 1, nbTeams):
                                         b = bounds.get((5, nbPerWeek), 1000)
                                         if (
-                                            sum(
-                                                [
-                                                    SolVal(x[p[0]][p[1]][w])
-                                                    for p in pairs([i, j, k, l, m], [])
-                                                ]
-                                            )
+                                            sum([
+                                                SolVal(x[p[0]][p[1]][w])
+                                                for p in pairs([i, j, k, l, m], [])
+                                            ])
                                             > b
                                         ):
                                             cuts.append([[i, j, k, l, m], [w, b]])

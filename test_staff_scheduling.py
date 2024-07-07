@@ -38,15 +38,13 @@ def main():
     elif sys.argv[1] == "instructor":
         RI = []
         for i in range(len(I)):
-            RI.append(
-                [
-                    I[i][0],
-                    tableutils.set2string(I[i][1]),
-                    tableutils.set2string(I[i][2]),
-                    tableutils.set2string(I[i][3]),
-                    tableutils.set2string(I[i][4]),
-                ]
-            )
+            RI.append([
+                I[i][0],
+                tableutils.set2string(I[i][1]),
+                tableutils.set2string(I[i][2]),
+                tableutils.set2string(I[i][3]),
+                tableutils.set2string(I[i][4]),
+            ])
         tableutils.printmat(
             tableutils.wrapmat(
                 RI, [], ["Id", "Load", "Course weights", "Set weights", "Pair weights"]
@@ -68,22 +66,20 @@ def main():
         # print(xs)
         XS = []
         for i in range(len(xs)):
-            XS.append(
+            XS.append([
+                xs[i][0],
                 [
-                    xs[i][0],
-                    [
-                        f"{e[0]:2}"
-                        + " : ("
-                        + f"{e[1][0]:2}"
-                        + " "
-                        + f"{e[1][1]:2}"
-                        + " "
-                        + f"{e[1][2]:2}"
-                        + ")"
-                        for e in xs[i][1]
-                    ],
-                ]
-            )
+                    f"{e[0]:2}"
+                    + " : ("
+                    + f"{e[1][0]:2}"
+                    + " "
+                    + f"{e[1][1]:2}"
+                    + " "
+                    + f"{e[1][2]:2}"
+                    + ")"
+                    for e in xs[i][1]
+                ],
+            ])
         tableutils.printmat(
             tableutils.wrapmat(XS, [], ["Instructor", "Section (WC WR WP)"]), True, 1
         )

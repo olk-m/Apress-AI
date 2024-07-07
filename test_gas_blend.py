@@ -53,7 +53,7 @@ def main():
                 T[i].insert(0, "Barrels")
             else:
                 T[i].insert(0, "Price")
-        T[2 + n][2 + m] = f"{Price-Cost:.2f}"
+        T[2 + n][2 + m] = f"{Price - Cost:.2f}"
         tableutils.printmat(T)
 
 

@@ -41,9 +41,9 @@ def minimize_non_linear(my_function, left, right, precision):
         G = minimize_piecewise_linear_convex(points, left)
         x = sum([G[i] * points[i][0] for i in range(n)])
         left = points[max(0, next(i - 1 for i in range(n) if G[i] > 0))][0]
-        right = points[min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))][
-            0
-        ]
+        right = points[
+            min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))
+        ][0]
     return x.SolutionValue()
 
 
@@ -61,9 +61,9 @@ def verbose_minimize_non_linear(my_function, left, right, precision):
         G.append(y)
         T.append(G)
         left = points[max(0, next(i - 1 for i in range(n) if G[i] > 0))][0]
-        right = points[min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))][
-            0
-        ]
+        right = points[
+            min(n - 1, next(i + 1 for i in range(n - 1, 0, -1) if G[i] > 0))
+        ][0]
         iter = iter + 1
         if iter > 10:
             break

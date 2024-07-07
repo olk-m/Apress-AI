@@ -27,9 +27,14 @@ def main():
             fti = sum(G[j] * C[i][0] ** j for j in range(degree + 1))
             fti1 = sum(G1[j] * C[i][0] ** j for j in range(degree + 1))
             error += abs(fti - C[i][1])
-            T.append(
-                [C[i][0], C[i][1], fti, abs(C[i][1] - fti), fti1, abs(C[i][1] - fti1)]
-            )
+            T.append([
+                C[i][0],
+                C[i][1],
+                fti,
+                abs(C[i][1] - fti),
+                fti1,
+                abs(C[i][1] - fti1),
+            ])
         T.insert(
             0,
             [

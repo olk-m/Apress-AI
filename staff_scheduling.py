@@ -102,26 +102,24 @@ def solve_model(S, I, R, P):
 def ss_ret(x, z, nbI, nbSets, nbS, nbPairs, I, S, R, P):
     xs = []
     for i in range(nbI):
-        xs.append(
+        xs.append([
+            i,
             [
-                i,
                 [
-                    [
-                        j,
-                        (
-                            I[i][2][S[j][1]],
-                            sum(I[i][3][r] for r in range(nbSets) if j in R[r][1]),
-                            sum(
-                                SolVal(z[i][p][k]) * I[i][4][p] / 2
-                                for p in range(nbPairs)
-                                for k in range(len(P[p][1]))
-                                if j in P[p][1][k]
-                            ),
+                    j,
+                    (
+                        I[i][2][S[j][1]],
+                        sum(I[i][3][r] for r in range(nbSets) if j in R[r][1]),
+                        sum(
+                            SolVal(z[i][p][k]) * I[i][4][p] / 2
+                            for p in range(nbPairs)
+                            for k in range(len(P[p][1]))
+                            if j in P[p][1][k]
                         ),
-                    ]
-                    for j in range(nbS)
-                    if SolVal(x[i][j]) > 0
-                ],
-            ]
-        )
+                    ),
+                ]
+                for j in range(nbS)
+                if SolVal(x[i][j]) > 0
+            ],
+        ])
     return xs

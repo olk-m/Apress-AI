@@ -95,7 +95,7 @@ def main():
                 end = time.clock()
                 if rc != 0:
                     print(count, "WTF!!!!!!!")
-                print(f"{count:06d},{(end-start)*1000:8.0f}")
+                print(f"{count:06d},{(end - start) * 1000:8.0f}")
     elif sys.argv[1] == "smm" or sys.argv[1] == "smm":
         rc, x = solve_smm()
         if rc == 0:
@@ -120,14 +120,12 @@ def main():
         if rc == 0:
             x = []
             for i in range(9):
-                x.append(
-                    [
-                        i + 1,
-                        STA[i],
-                        ["False", "True"][int(S[i])],
-                        ["", "Lady", "Tiger"][int(R[i][0])],
-                    ]
-                )
+                x.append([
+                    i + 1,
+                    STA[i],
+                    ["False", "True"][int(S[i])],
+                    ["", "Lady", "Tiger"][int(R[i][0])],
+                ])
             tableutils.printmat(x)
         else:
             print("Infeasible")

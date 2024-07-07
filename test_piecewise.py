@@ -40,7 +40,9 @@ def main():
         G.append([Data[i][0] for i in range(n + 1)])
         G[2].append("x=" + str(sum(G[1][i] * G[2][i] for i in range(n + 1))))
         G.append([Data[i][1] for i in range(n + 1)])
-        G[3].append("Cost=" + str(f"{sum(G[1][i]*G[3][i] for i in range(n+1)):.0f}"))
+        G[3].append(
+            "Cost=" + str(f"{sum(G[1][i] * G[3][i] for i in range(n + 1)):.0f}")
+        )
         G[0].insert(0, "Interval")
         G[1].insert(0, r"$\delta_i$")
         G[2].insert(0, "$x_i$")
@@ -60,7 +62,7 @@ def main():
             G[3].extend(["", r"\sum \delta=" + str(sum(G[3][i] for i in range(n - 1)))])
             G.append([Data[i][1] for i in range(n + 1)])
             G[4].append(
-                "f(x)=" + str(f"{sum(G[1][i]*G[4][i] for i in range(n+1)):.2f}")
+                "f(x)=" + str(f"{sum(G[1][i] * G[4][i] for i in range(n + 1)):.2f}")
             )
             tableutils.printmat(G, True)
         else:

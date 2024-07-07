@@ -1,0 +1,122 @@
+target-version = "py312"
+
+lint.ignore = [
+    # whitespace-before-punctuation (disabled because it is not stable, better enable this rule later)
+    "E203",
+    # Do not perform function call {name} in argument defaults
+    "B008",
+    # Missing explicit return at the end of function able to return non-None value
+    "RET503",
+    # Use of assert detected
+    "S101",
+    # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "S311",
+    # Relative imports from parent modules are banned
+    "TID252",
+    # Missing author in TODO; try: # TODO(<author_name>): ... or # TODO @<author_name>: ...
+    "TD002",
+    # Magic value used in comparison, consider replacing...
+    "PLR2004",
+    # Explicitly concatenated string should be implicitly concatenated
+    "ISC003",
+    # Use `logging.exception` instead of `logging.error`
+    "TRY400",
+    # missing-trailing-comma
+    "COM812",
+    # unused-method-argument
+    "ARG002",
+    # unspecified-encoding
+    "PLW1514",
+    # pandas-use-of-dot-at
+    "PD008",
+    # pandas-use-of-dot-iat
+    "PD009",
+    # We do not use SQL, so injection is not possible.
+    "S608",
+    # Use `contextlib.suppress(KeyError)` instead of `try`-`except`-`pass`
+    "SIM105",
+]
+lint.select = [
+    # Pyflakes
+    "F",
+    # pycodestyle (E, W)
+    "E",
+    "W",
+    # mccabe
+    "C90",
+    # isort
+    "I",
+    # pep8-naming
+    "N",
+    # pydocstyle
+    "D",
+    # pyupgrade
+    "UP",
+    # flake8-async
+    "ASYNC",
+    # flake8-bandit
+    "S",
+    # flake8-boolean-trap
+    "FBT",
+    # flake8-bugbear
+    "B",
+    # flake8-builtins
+    "A",
+    # flake8-commas
+    "COM",
+    # flake8-copyright
+    "CPY",
+    # flake8-comprehensions
+    "C4",
+    # flake8-datetimez
+    "DTZ",
+    # flake8-executable
+    "EXE",
+    # flake8-future-annotations
+    "FA",
+    # flake8-implicit-str-concat
+    "ISC",
+    # flake8-pie
+    "PIE",
+    # flake8-pytest-style
+    "PT",
+    # flake8-raise
+    "RSE",
+    # flake8-return
+    "RET",
+    # flake8-slots
+    "SLOT",
+    # flake8-simplify
+    "SIM",
+    # flake8-unused-arguments
+    "ARG",
+    # flake8-use-pathlib
+    "PTH",
+    # flake8-todos
+    "TD",
+    # pandas-vet
+    "PD",
+    # pygrep-hooks
+    "PGH",
+    # Pylint
+    "PL",
+    # tryceratops
+    "TRY",
+    # flynt
+    "FLY",
+    # NumPy-specific rules
+    "NPY",
+    # Perflint
+    "PERF",
+    # refurb
+    "FURB",
+    # flake8-logging
+    "LOG",
+    # Ruff-specific rules
+    "RUF",
+    # flake8-quotes
+    "Q",
+    # flake8-debugger
+    "T10",
+]
+

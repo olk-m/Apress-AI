@@ -48,8 +48,6 @@ lint.select = [
     "I",
     # pep8-naming
     "N",
-    # pydocstyle
-    "D",
     # pyupgrade
     "UP",
     # flake8-async

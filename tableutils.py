@@ -1,4 +1,3 @@
-
 import copy
 def flatten(l):
     return [e for s in l for e in s]
@@ -31,22 +30,22 @@ def formatmat(M,zeroes=False,decimals=4):
             el = T[i][j]
             if type(el)==int:
                 if el or zeroes:
-                    el = '{0:4d}'.format(el)
+                    el = f'{el:4d}'
                 else:
                     el = ''
                 T[i][j] = el
             elif type(el)==float:
                 if el or zeroes :
                     if decimals==4:
-                        el = '{0:.4f}'.format(el)
+                        el = f'{el:.4f}'
                     elif decimals==3:
-                        el = '{0:.3f}'.format(el)
+                        el = f'{el:.3f}'
                     elif decimals==2:
-                        el = '${0:.2f}'.format(el)
+                        el = f'${el:.2f}'
                     elif decimals==1:
-                        el = '{0:.1f}'.format(el)
+                        el = f'{el:.1f}'
                     elif decimals==0:
-                        el = '{0:.0f}'.format(el)
+                        el = f'{el:.0f}'
                 else:
                     el = ''
                 T[i][j] = el

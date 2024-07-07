@@ -1,4 +1,3 @@
-
 from staffing import gen_data, solve_model
 def main():
   import sys
@@ -8,7 +7,7 @@ def main():
   n=7                           # Number of shifts
   n0=4                          # Number of full-time shifts
   header = ['Shift '+str(j) for j in range(n)]
-  left = ['{0:02}h'.format(i*2) for i in range(m)]+['Cost']
+  left = [f'{i*2:02}h' for i in range(m)]+['Cost']
   if len(sys.argv)<=1:
     print('Usage is main [data|run|runo] [seed]')
     return

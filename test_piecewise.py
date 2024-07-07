@@ -1,4 +1,3 @@
-
 from piecewise import gen_data, minimize_piecewise_linear_convex,\
     minimize_non_linear,verbose_minimize_non_linear
 from piecewise_ncvx import minimize_piecewise_linear
@@ -28,13 +27,13 @@ def main():
         G=minimize_piecewise_linear_convex(Data,B)
         G=[[i for i in range(n+1)],G]
         G[0].append('Solution')
-        G[1].append('\sum \delta='+str(sum(G[1][i] for i in range(n+1))))
+        G[1].append(r'\sum \delta='+str(sum(G[1][i] for i in range(n+1))))
         G.append([Data[i][0] for i in range(n+1)])
         G[2].append('x='+str(sum(G[1][i]*G[2][i] for i in range(n+1))))
         G.append([Data[i][1] for i in range(n+1)])
-        G[3].append('Cost='+str("{0:.0f}".format(sum(G[1][i]*G[3][i] for i in range(n+1)))))
+        G[3].append('Cost='+str(f"{sum(G[1][i]*G[3][i] for i in range(n+1)):.0f}"))
         G[0].insert(0,'Interval')
-        G[1].insert(0,'$\delta_i$')
+        G[1].insert(0,r'$\delta_i$')
         G[2].insert(0,'$x_i$')
         G[3].insert(0,'$f(x_i)$')
         tableutils.printmat(G,True)
@@ -45,13 +44,13 @@ def main():
         if rc == 0:
             G=[[i for i in range(n+1)],G]
             G[0].append('Solution')
-            G[1].append('\sum \lambda='+str(sum(G[1][i] for i in range(n+1))))
+            G[1].append(r'\sum \lambda='+str(sum(G[1][i] for i in range(n+1))))
             G.append([Data[i][0] for i in range(n+1)])
             G[2].append('x='+str(sum(G[1][i]*G[2][i] for i in range(n+1))))
             G.append(H)
-            G[3].extend(['','\sum \delta='+str(sum(G[3][i] for i in range(n-1)))])
+            G[3].extend(['',r'\sum \delta='+str(sum(G[3][i] for i in range(n-1)))])
             G.append([Data[i][1] for i in range(n+1)])
-            G[4].append('f(x)='+str("{0:.2f}".format(sum(G[1][i]*G[4][i] for i in range(n+1)))))
+            G[4].append('f(x)='+str(f"{sum(G[1][i]*G[4][i] for i in range(n+1)):.2f}"))
             tableutils.printmat(G,True)
         else:
             print('Infeasible',rc,G,H)
@@ -64,6 +63,6 @@ def main():
         for i in range(1,m,3):
             G[i].insert(0,'$x_i$')
             G[i+1].insert(0,'$f(x_i)$')
-            G[i+2].insert(0,'$\delta_i$')
+            G[i+2].insert(0,r'$\delta_i$')
         tableutils.printmat(G,True,1)
 main()

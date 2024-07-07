@@ -1,4 +1,3 @@
-
 from maxflow import gen_data, solve_model
 def main():
   import sys

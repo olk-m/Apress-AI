@@ -1,4 +1,3 @@
-
 from my_or_tools import ObjVal, SolVal, newSolver
 
 def k_out_of_n(solver,k,x,rel='=='):

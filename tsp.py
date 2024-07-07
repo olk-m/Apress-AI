@@ -1,4 +1,3 @@
-
 from random import randint,uniform
 from math import sqrt
 def dist(p1,p2):

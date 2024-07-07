@@ -1,4 +1,3 @@
-
 from random import randint,uniform
 def gen_data(m,n,k):
         # m is number of subsets, n is the size of universe, k is the size of each subset

@@ -1,4 +1,3 @@
-
 from facility_location import gen_dcost, gen_fcost, solve_model
 def main():
     import sys

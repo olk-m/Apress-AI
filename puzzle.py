@@ -1,4 +1,3 @@
-
 from my_or_tools import newSolver, SolVal
 from my_or_tools import k_out_of_n
 

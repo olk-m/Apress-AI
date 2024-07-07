@@ -1,4 +1,3 @@
-
 from my_or_tools import SolVal, ObjVal
 from my_or_tools_c import bounds_on_box
 from ortools.linear_solver import pywraplp  

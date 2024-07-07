@@ -1,4 +1,3 @@
-
 from curve_fit import gen_data, solve_model
 def main():
     import sys

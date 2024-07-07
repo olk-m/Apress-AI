@@ -1,5 +1,3 @@
-
-from __future__ import print_function
 from coexistence import solve_coexistence
 pop,x=solve_coexistence()
 T=[['Specie', 'Count']]

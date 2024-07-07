@@ -1,4 +1,3 @@
-
 from random import randint
 import transship_dist
 def gen_data(n,K):

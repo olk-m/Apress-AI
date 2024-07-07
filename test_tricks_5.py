@@ -1,4 +1,3 @@
-
 from my_or_tools import SolVal, ObjVal, newSolver
 from my_or_tools_c import bounds_on_box, reify_force
 def main():

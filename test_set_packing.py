@@ -1,4 +1,3 @@
-
 from set_packing import gen_data, solve_model
 def main():
     import sys
@@ -25,6 +24,6 @@ def main():
         #for i in range(len(C)):
         #     if len(C[i]):
         #         T.append(['Crew id '+str(i),tableutils.set2string(C[i])])
-        T.insert(0,['Rosters chosen {0:}'.format(int(Val)),tableutils.set2string(S)])
+        T.insert(0,[f'Rosters chosen {int(Val)}',tableutils.set2string(S)])
         tableutils.printmat(T,True)
 main()

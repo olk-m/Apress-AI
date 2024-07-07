@@ -1,4 +1,3 @@
-
 from my_or_tools_c import k_out_of_n, sosn
 from random import randint,seed
 from my_or_tools import SolVal
@@ -29,7 +28,7 @@ def main():
     xx = [[' ','x'][e>0] for e in sx]
 
     tableutils.printmat(tableutils.wrapmat([xx,yy],
-                                           ['{0}/{1}'.format(k,n),'Adjacent {0}/{1}'.format(k,n)],
+                                           [f'{k}/{n}',f'Adjacent {k}/{n}'],
                                            None),0,False)
   return rc
 

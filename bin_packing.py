@@ -1,4 +1,3 @@
-
 from random import randint,uniform
 from math import ceil
 def gen_data(n):

@@ -1,4 +1,3 @@
-
 from random import randint, choice
 def compute_weeks(T,P):
   from math import ceil

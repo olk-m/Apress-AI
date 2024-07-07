@@ -1,4 +1,3 @@
-
 from random import randint, uniform
 def gen_data_content(m,n):
     # Oils down, acids accross (more oils than acids  m > n)
@@ -38,8 +37,8 @@ def gen_data_target(C):
         acid = f*C[m-1][j]
         R[j] += acid
     for j in range(n):
-        R0.append((0.95*R[j]/100.0))
-        R1.append((1.05*R[j]/100.0))
+        R0.append(0.95*R[j]/100.0)
+        R1.append(1.05*R[j]/100.0)
     return [R0,R1]
 def gen_data_cost(m,k):
     # Oils down, months accross

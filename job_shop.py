@@ -1,4 +1,3 @@
-
 from random import randint,uniform,shuffle,sample
 def gen_data(m,n):
     # m is number of jobs, n is the number of machines

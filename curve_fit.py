@@ -1,4 +1,3 @@
-
 from random import randint, uniform
 def gen_data(myfunc,n):
     R=[]

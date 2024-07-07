@@ -1,4 +1,3 @@
-
 from blend_multi import gen_data_content, gen_data_target, gen_data_cost, gen_data_inventory, solve_model
 def main():
     import sys

@@ -1,4 +1,3 @@
-
 from shortest_path import gen_data, solve_model, solve_all_pairs, solve_tree_model, critical_tasks
 def main():
     import sys

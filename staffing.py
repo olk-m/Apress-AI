@@ -1,4 +1,3 @@
-
 from random import randint, uniform
 def gen_data(m,n,n0):
   # m is number of time intervals, n is number of shifts

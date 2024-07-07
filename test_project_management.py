@@ -1,4 +1,3 @@
-
 from project_management import gen_data, solve_model, solve_model_clp
 def main():
     import sys

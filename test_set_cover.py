@@ -1,4 +1,3 @@
-
 from set_cover import gen_data, solve_model
 def main():
     import sys

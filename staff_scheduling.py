@@ -1,4 +1,3 @@
-
 from random import randint
 def gen_section(n):
   R=[]

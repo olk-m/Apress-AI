@@ -1,4 +1,3 @@
-
 from my_or_tools import SolVal, newSolver
 from my_or_tools_c import sosn
 

@@ -1,4 +1,3 @@
-
 from my_or_tools   import newSolver, SolVal
 from puzzle import solve_maxrook, solve_maxpiece, solve_sudoku, solve_smm, solve_lady_or_tiger
 def main():
@@ -73,7 +72,7 @@ def main():
                 end = time.clock()
                 if rc != 0:
                     print(count, 'WTF!!!!!!!')
-                print('{0:06d},{1:8.0f}'.format(count,(end-start)*1000))
+                print(f'{count:06d},{(end-start)*1000:8.0f}')
     elif sys.argv[1]=='smm':
         rc,x = solve_smm()
         if rc == 0:

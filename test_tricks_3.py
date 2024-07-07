@@ -1,5 +1,3 @@
-
-from __future__ import print_function
 from ortools.linear_solver import pywraplp  
 from my_or_tools import SolVal, ObjVal
 from my_or_tools_c import maximax

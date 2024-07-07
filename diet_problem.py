@@ -1,4 +1,3 @@
-
 def gen_diet_problem(nb_foods=5, nb_nutrients=4):
     from random import randint,uniform
     data = []

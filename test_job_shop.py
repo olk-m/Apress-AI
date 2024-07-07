@@ -1,4 +1,3 @@
-
 from job_shop import gen_data, solve_model
 def main():
     import sys

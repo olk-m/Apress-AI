@@ -1,5 +1,3 @@
-
-from __future__ import print_function
 from multi_commodity_flow import gen_data,solve_model,solve_all_pairs
 import shortest_path
 def main():
@@ -37,8 +35,8 @@ def main():
     C = shortest_path.gen_data(n)    
     rc,Paths,Costs=solve_all_pairs(C,S)
     for i in range(len(S)):
-      print('{0}-Target'.format(S[i]),'Cost','[Path]')
+      print(f'{S[i]}-Target','Cost','[Path]')
       for v in range(n):
         if v != S[i]:
-          print(v,Costs[i][v],'{0}'.format(Paths[i][v]))
+          print(v,Costs[i][v],f'{Paths[i][v]}')
 main()

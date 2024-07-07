@@ -1,4 +1,3 @@
-
 from tableutils import printmat,wrapmat,formatmat
 from diet_problem import gen_diet_problem, solve_diet
 import random

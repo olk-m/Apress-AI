@@ -1,4 +1,3 @@
-
 from random import randint
 def inner(a,b):
   s=0

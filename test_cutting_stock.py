@@ -1,4 +1,3 @@
-
 from cutting_stock import gen_data, solve_model, solve_large_model
 import time
 def main():

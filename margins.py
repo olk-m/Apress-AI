@@ -1,4 +1,3 @@
-
 from my_or_tools import SolVal,ObjVal,newSolver
 
 def solve_margins_classification(A,B):

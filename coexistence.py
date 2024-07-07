@@ -1,4 +1,3 @@
-
 from ortools.linear_solver import pywraplp                                
 def solve_coexistence():
   t = 'Amphibian coexistence'

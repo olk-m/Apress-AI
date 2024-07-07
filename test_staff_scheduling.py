@@ -1,4 +1,3 @@
-
 from staff_scheduling import gen_section, gen_instructor, gen_pairs, solve_model, gen_sets
 from my_or_tools import newSolver, ObjVal, SolVal
 def main():
@@ -37,7 +36,7 @@ def main():
     elif sys.argv[1]=='pairs':
         RP=[]
         for i in range(len(P)):
-            X=[str('(')+str(e[0])+str(' ')+str(e[1])+str(')') for e in P[i][1]]
+            X=['('+str(e[0])+' '+str(e[1])+')' for e in P[i][1]]
             RP.append([P[i][0],tableutils.set2string(X)])
         tableutils.printmat(tableutils.wrapmat(RP,[],['Id','Section pairs']),True,0)
     elif sys.argv[1]=='run':
@@ -47,6 +46,6 @@ def main():
         XS=[]
         for i in range(len(xs)):
             XS.append([xs[i][0], 
-                       ['{0:2}'.format(e[0])+' : ('+'{0:2}'.format(e[1][0])+' '+'{0:2}'.format(e[1][1])+' '+'{0:2}'.format(e[1][2])+')' for e in xs[i][1]]])
+                       [f'{e[0]:2}'+' : ('+f'{e[1][0]:2}'+' '+f'{e[1][1]:2}'+' '+f'{e[1][2]:2}'+')' for e in xs[i][1]]])
         tableutils.printmat(tableutils.wrapmat(XS,[],['Instructor','Section (WC WR WP)']),True,1)
 main()

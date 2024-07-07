@@ -1,4 +1,3 @@
-
 from random import randint
 def gen_data(n):
   R,S,T=[],[],[]

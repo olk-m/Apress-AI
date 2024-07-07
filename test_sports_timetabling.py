@@ -1,4 +1,3 @@
-
 from sports_timetabling import gen_data, solve_model, solve_model_big
 import sys
 sys.setrecursionlimit(10000)

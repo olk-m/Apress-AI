@@ -1,5 +1,3 @@
-
-from __future__ import print_function
 from tsp import gen_data, solve_model, solve_model_eliminate, solve_model_p, solve_model_star
 def main():
   import sys
@@ -24,7 +22,7 @@ def main():
     while count < 10 and len(tours) != 1:
       rc,Value,tours=solve_model_eliminate(C,subtours)
       subtours.extend(tours)
-      display.append(['{0}-({1})'.format(count,int(Value))]+[tour for tour in tours])
+      display.append([f'{count}-({int(Value)})']+[tour for tour in tours])
       count += 1
     display.insert(0,['Iter (value)','Tour(s)'])
     for row in display:
@@ -33,7 +31,7 @@ def main():
         l=l+' '+str(row[i])
         if i < len(row)-1:
           l=l+';'
-      print('{0}, "{1}"'.format(row[0],l))
+      print(f'{row[0]}, "{l}"')
   elif sys.argv[1]=='run':
       rc,Value,tours=solve_model(C)    
       T=[tours]

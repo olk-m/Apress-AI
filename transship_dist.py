@@ -1,4 +1,3 @@
-
 from random import randint
 def gen_data(n,zap=True):
     R,Cap=[],[]

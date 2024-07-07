@@ -1,17 +1,20 @@
-from ortools.linear_solver import pywraplp  
-from my_or_tools import SolVal, ObjVal
-from my_or_tools_c import bounds_on_box,reify_force,reify_raise,reify,sosn
+from ortools.linear_solver import pywraplp
+
+from my_or_tools import ObjVal, SolVal
+from my_or_tools_c import bounds_on_box, reify, reify_force, reify_raise, sosn
+
+
 def main():
   # Test force
   bounds = []
-  s = pywraplp.Solver('',pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
+  s = pywraplp.Solver("",pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
   a = [[0,1],[1,0]]
   b = [4,5]
-  x = [s.IntVar(0,10,'x[%i]' % i) for i in range(2)]
+  x = [s.IntVar(0,10,"x[%i]" % i) for i in range(2)]
   bounds,delta,gamma = [],[],[]
   for j in range(len(a)):
     bounds.append(bounds_on_box(a[j],x,b[j]))
-    d = reify_force(s,a[j],x,b[j],rel='==')
+    d = reify_force(s,a[j],x,b[j],rel="==")
     delta.append(d)
   s.Maximize(x[0]+x[1])
   rc = s.Solve()
@@ -35,14 +38,14 @@ def main():
     print(rc)
 
   # Test raise
-  s = pywraplp.Solver('',pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
+  s = pywraplp.Solver("",pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
   a = [[0,1],[1,0]]
   b = [4,5]
-  x = [s.IntVar(0,10,'x[%i]' % i) for i in range(2)]
+  x = [s.IntVar(0,10,"x[%i]" % i) for i in range(2)]
   bounds,delta,gamma = [],[],[]
   for j in range(len(a)):
     bounds.append(bounds_on_box(a[j],x,b[j]))
-    d = reify_raise(s,a[j],x,b[j],rel='==')
+    d = reify_raise(s,a[j],x,b[j],rel="==")
     delta.append(d)
   s.Minimize(x[0]+x[1]+delta[0]+delta[1])
   rc = s.Solve()
@@ -70,18 +73,18 @@ def main():
 
 
   # Test iff
-  s = pywraplp.Solver('',pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
+  s = pywraplp.Solver("",pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
   a = [[0,1],[1,0]]
   b = [4,5]
-  x = [s.IntVar(0,10,'x[%i]' % i) for i in range(2)]
-  q = [s.IntVar(0,1,'') for _ in range(2)]
+  x = [s.IntVar(0,10,"x[%i]" % i) for i in range(2)]
+  q = [s.IntVar(0,1,"") for _ in range(2)]
   bounds,delta,gamma = [],[],[]
   for j in range(len(a)):
     bounds.append(bounds_on_box(a[j],x,b[j]))
-    d = reify(s,a[j],x,b[j],rel='==')
+    d = reify(s,a[j],x,b[j],rel="==")
     delta.append(d)
   s.Minimize(x[0]+x[1])
-  sosn(s,1,q,'==')
+  sosn(s,1,q,"==")
   rc = s.Solve()
   if rc == 0:
     #print rc,ObjVal(s),SolVal(delta),SolVal(x)

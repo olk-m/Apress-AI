@@ -1,46 +1,49 @@
-from my_or_tools import ObjVal, SolVal, newSolver
+from my_or_tools import ObjVal
 
-def k_out_of_n(solver,k,x,rel='=='):
+
+def k_out_of_n(solver,k,x,rel="=="):
   n = len(x)
   binary = sum(x[i].Lb()==0 for i in range(n)) == n and \
-           sum(x[i].Ub()==1 for i in range(n)) == n 
+           sum(x[i].Ub()==1 for i in range(n)) == n
   if binary:
     l = x
   else:
-    l = [solver.IntVar(0,1,'') for i in range(n)]
+    l = [solver.IntVar(0,1,"") for i in range(n)]
     for i in range(n):
       if x[i].Ub() > 0:
-        solver.Add(x[i] <= x[i].Ub()*l[i]) 
+        solver.Add(x[i] <= x[i].Ub()*l[i])
       else:
-        solver.Add(x[i] >= x[i].Lb()*l[i]) 
+        solver.Add(x[i] >= x[i].Lb()*l[i])
   S = sum(l[i] for i in range(n))
-  if rel == '==' or rel == '=':
-    solver.Add(S == k)
-  elif rel == '>=':
-    solver.Add(S >= k)
+  if rel == "==" or rel == "=":
+    solver.Add(k == S)
+  elif rel == ">=":
+    solver.Add(k <= S)
   else:
-    solver.Add(S <= k)
+    solver.Add(k >= S)
   return l
 
-def sosn(solver,k,x,rel='<='):
+def sosn(solver,k,x,rel="<="):
   def sosnrecur(solver,k,l):
     n = len(l)
-    d = [solver.IntVar(0,1,'') for _ in range(n-1)]
+    d = [solver.IntVar(0,1,"") for _ in range(n-1)]
     for i in range(n):
       solver.Add(l[i] <= sum(d[j] \
         for j in range(max(0,i-1),min(n-2,i+1))))
     solver.Add(k == sum(d[i] for i in range(n-1)))
-    return d if k <= 1 else [d,sosnrecur(solver,k-1,d)] 
+    return d if k <= 1 else [d,sosnrecur(solver,k-1,d)]
   n = len(x)
   if 0 < k < n:
-    l = k_out_of_n(solver,k,x,rel) 
+    l = k_out_of_n(solver,k,x,rel)
     return l if k <= 1 else [l,sosnrecur(solver,k-1,l)]
 
-from ortools.linear_solver import pywraplp  
+from ortools.linear_solver import pywraplp
+
+
 def bounds_on_box(a,x,b):
   Bounds,n = [None,None],len(a)
-  s = pywraplp.Solver('Box',pywraplp.Solver.GLOP_LINEAR_PROGRAMMING)
-  xx = [s.NumVar(x[i].Lb(), x[i].Ub(),'') for i in range(n)] 
+  s = pywraplp.Solver("Box",pywraplp.Solver.GLOP_LINEAR_PROGRAMMING)
+  xx = [s.NumVar(x[i].Lb(), x[i].Ub(),"") for i in range(n)]
   S = s.Sum([-b]+[a[i]*xx[i] for i in range(n)])
   s.Maximize(S)
   rc = s.Solve()
@@ -50,34 +53,34 @@ def bounds_on_box(a,x,b):
   Bounds[0] = None if rc != 0 else ObjVal(s)
   return Bounds
 
-def reify_force(s,a,x,b,delta=None,rel='<=',bnds=None):
+def reify_force(s,a,x,b,delta=None,rel="<=",bnds=None):
   # delta == 1 ---> a*x <= b
   n = len(a)
   if delta is None:
-    delta = s.IntVar(0,1,'') 
+    delta = s.IntVar(0,1,"")
   if bnds is None:
     bnds = bounds_on_box(a,x,b)
-  if rel in ['<=','==']:
+  if rel in ["<=","=="]:
     s.Add(sum(a[i]*x[i] for i in range(n))<=b+bnds[1]*(1-delta))
-  if rel in ['>=','==']:
+  if rel in [">=","=="]:
     s.Add(sum(a[i]*x[i] for i in range(n))>=b+bnds[0]*(1-delta))
   return delta
 
-def reify_raise(s,a,x,b,delta=None,rel='<=',bnds=None,eps=1):
+def reify_raise(s,a,x,b,delta=None,rel="<=",bnds=None,eps=1):
   # a*x <= b ---> delta == 1
   n = len(a)
   if delta is None:
-    delta = s.IntVar(0,1,'')
+    delta = s.IntVar(0,1,"")
   if bnds is None:
     bnds = bounds_on_box(a,x,b)
-  if rel == '<=':
+  if rel == "<=":
     s.Add(sum(a[i]*x[i] for i in range(n)) \
           >= b+bnds[0]*delta+eps*(1-delta))
-  if rel == '>=':
+  if rel == ">=":
     s.Add(sum(a[i]*x[i] for i in range(n)) \
           <= b+bnds[1]*delta-eps*(1-delta))
-  elif rel == '==':
-    gm = [s.IntVar(0,1,'') for _ in range(2)]
+  elif rel == "==":
+    gm = [s.IntVar(0,1,"") for _ in range(2)]
     s.Add(sum(a[i]*x[i] for i in range(n)) \
           >= b+bnds[0]*gm[0]+eps*(1-gm[0]))
     s.Add(sum(a[i]*x[i] for i in range(n)) \
@@ -85,7 +88,7 @@ def reify_raise(s,a,x,b,delta=None,rel='<=',bnds=None,eps=1):
     s.Add(gm[0] + gm[1] - 1 == delta)
   return delta
 
-def reify(s,a,x,b,d=None,rel='<=',bs=None,eps=1):
+def reify(s,a,x,b,d=None,rel="<=",bs=None,eps=1):
   # d == 1 <---> a*x <= b
   return reify_raise(s,a,x,b,reify_force(s,a,x,b,d,rel,bs),rel,bs,eps)
 
@@ -94,8 +97,8 @@ def maximax(s,a,x,b):
   d = [bounds_on_box(a[i],x,b[i]) for i in range(n)]
   zbound = [min(d[i][0] for i in range(n)), max(d[i][1] \
            for i in range(n))]
-  z = s.NumVar(zbound[0],zbound[1],'')
-  delta = [reify(s,a[i]+[-1],x+[z],b[i],None,'==') \
+  z = s.NumVar(zbound[0],zbound[1],"")
+  delta = [reify(s,a[i]+[-1],x+[z],b[i],None,"==") \
           for i in range(n)]
   k_out_of_n(s,1,delta)
   s.Maximize(z)

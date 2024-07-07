@@ -1,34 +1,37 @@
-from my_or_tools_c import k_out_of_n, sosn
-from random import randint,seed
-from my_or_tools import SolVal
-from ortools.linear_solver import pywraplp  
+from random import randint, seed
+
+from ortools.linear_solver import pywraplp
 
 import tableutils
+from my_or_tools import SolVal
+from my_or_tools_c import k_out_of_n, sosn
+
+
 def main():
-  t = 'k out of n'
+  t = "k out of n"
   n = 9
   seed(100)
   bound = [randint(5,15) for _ in range(n)]
-  tableutils.printmat([['Max sum of']+bound])
+  tableutils.printmat([["Max sum of"]+bound])
   for k in range(1,n+1):
     s = pywraplp.Solver(t,pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
-    x = [s.NumVar(0,bound[i],'') for i in range(n)]
-    y = [s.NumVar(0,bound[i],'') for i in range(n)]
+    x = [s.NumVar(0,bound[i],"") for i in range(n)]
+    y = [s.NumVar(0,bound[i],"") for i in range(n)]
     Costx = sum(x[i] for i in range(n))
     Costy = sum(y[i] for i in range(n))
     s.Maximize(Costx+Costy)
-    k_out_of_n(s,k,x,'==')
+    k_out_of_n(s,k,x,"==")
     ldg=sosn(s,k,y)
     rc = s.Solve()
     if rc != 0:
-      print('Error', rc)
+      print("Error", rc)
     sy = SolVal(y)
     sx = SolVal(x)
-    yy = [[' ','x'][e>0] for e in sy]
-    xx = [[' ','x'][e>0] for e in sx]
+    yy = [[" ","x"][e>0] for e in sy]
+    xx = [[" ","x"][e>0] for e in sx]
 
     tableutils.printmat(tableutils.wrapmat([xx,yy],
-                                           [f'{k}/{n}',f'Adjacent {k}/{n}'],
+                                           [f"{k}/{n}",f"Adjacent {k}/{n}"],
                                            None),0,False)
   return rc
 

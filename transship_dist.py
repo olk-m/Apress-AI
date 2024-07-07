@@ -1,4 +1,6 @@
 from random import randint
+
+
 def gen_data(n,zap=True):
     R,Cap=[],[]
     S,D=0,0
@@ -17,7 +19,7 @@ def gen_data(n,zap=True):
         RR.append(T)
         R.append(RR)
         S += T
-    A = S/n                    
+    A = S/n
     RR = []
     for i in range(n-1):
         if zap:
@@ -37,16 +39,17 @@ def gen_data(n,zap=True):
 
 from my_or_tools import ObjVal, SolVal, newSolver
 
+
 def solve_model(D):
-  s = newSolver('Transshipment problem')
+  s = newSolver("Transshipment problem")
   n = len(D[0])-1
   B = sum([D[-1][j] for j in range(n)])
-  G = [[s.NumVar(0,B if D[i][j] else 0,'') \
-      for j in range(n)] for i in range(n)]  
-  for i in range(n): 
+  G = [[s.NumVar(0,B if D[i][j] else 0,"") \
+      for j in range(n)] for i in range(n)]
+  for i in range(n):
     s.Add(D[i][-1] - D[-1][i] ==  \
     sum(G[i][j] for j in range(n))-sum(G[j][i]for j in range(n)))
-  Cost=s.Sum(G[i][j]*D[i][j] for i in range(n)for j in range(n)) 
+  Cost=s.Sum(G[i][j]*D[i][j] for i in range(n)for j in range(n))
   s.Minimize(Cost)
   rc = s.Solve()
   return rc,ObjVal(s),SolVal(G)

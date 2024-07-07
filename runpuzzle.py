@@ -1,5 +1,8 @@
-from puzzle import solve_maxrook
 from time import time
+
+from puzzle import solve_maxrook
+
+
 def main():
     n0,S,X = 8,7,3
     N,T = [],[]
@@ -13,5 +16,5 @@ def main():
         T.append(t)
     T  = [T[i]/T[0] for i in range(len(T))]
     for i in range(S):
-        print(f'{N[i]:4d} {T[i]:.0f}')
+        print(f"{N[i]:4d} {T[i]:.0f}")
 main()

@@ -1,5 +1,7 @@
-from random import randint,uniform
 from math import sqrt
+from random import randint, uniform
+
+
 def dist(p1,p2):
   return int(round(10*sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)))
 def gen_data(n):
@@ -14,22 +16,23 @@ def gen_data(n):
 
 from my_or_tools import ObjVal, SolVal, newSolver
 
+
 def solve_model_eliminate(D,Subtours=[]):
-  s,n = newSolver('TSP', True),len(D)
-  x = [[s.IntVar(0,0 if D[i][j] is None else 1,'') \
-        for j in range(n)] for i in range(n)] 
-  for i in range(n):  
-    s.Add(1 == sum(x[i][j] for j in range(n))) 
-    s.Add(1 == sum(x[j][i] for j in range(n))) 
-    s.Add(0 == x[i][i])
+  s,n = newSolver("TSP", True),len(D)
+  x = [[s.IntVar(0,0 if D[i][j] is None else 1,"") \
+        for j in range(n)] for i in range(n)]
+  for i in range(n):
+    s.Add(sum(x[i][j] for j in range(n)) == 1)
+    s.Add(sum(x[j][i] for j in range(n)) == 1)
+    s.Add(x[i][i] == 0)
   for sub in Subtours:
     K = [x[sub[i]][sub[j]]+x[sub[j]][sub[i]]\
          for i in range(len(sub)-1) for j in range(i+1,len(sub))]
     s.Add(len(sub)-1 >= sum(K))
   s.Minimize(s.Sum(x[i][j]*(0 if D[i][j] is None else D[i][j]) \
-                   for i in range(n) for j in range(n))) 
+                   for i in range(n) for j in range(n)))
   rc = s.Solve()
-  tours = extract_tours(SolVal(x),n) 
+  tours = extract_tours(SolVal(x),n)
   return rc,ObjVal(s),tours
 
 def extract_tours(R,n):

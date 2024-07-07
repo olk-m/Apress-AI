@@ -1,4 +1,6 @@
 from ortools.linear_solver import pywraplp
+
+
 def newSolver(name,integer=False):
   return pywraplp.Solver(name,\
                          pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING \

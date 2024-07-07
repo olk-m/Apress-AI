@@ -1,4 +1,6 @@
-from random import randint,uniform
+from random import randint, uniform
+
+
 def gen_data(m,n):
     # m is number of subsets, n is the size of universe
     All=[0 for i in range(n)]
@@ -15,20 +17,22 @@ def gen_data(m,n):
             R.append(RR)
     return R,[randint(1,10) for i in range(m)]
 
-from my_or_tools import ObjVal, SolVal
 from ortools.linear_solver import pywraplp
 
+from my_or_tools import ObjVal, SolVal
+
+
 def solve_model(D,C=None):
-  t = 'Set Cover'
+  t = "Set Cover"
   s = pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING
-  s = pywraplp.Solver(t,s) 
+  s = pywraplp.Solver(t,s)
   nbSup = len(D)
   nbParts = max([e for d in D for e in d])+1
-  S = [s.IntVar(0,1,'')  for i in range(nbSup)] 
+  S = [s.IntVar(0,1,"")  for i in range(nbSup)]
   for j in range(nbParts):
-    s.Add(1 <= sum(S[i] for i in range(nbSup) if j in D[i])) 
+    s.Add(sum(S[i] for i in range(nbSup) if j in D[i]) >= 1)
   s.Minimize(s.Sum(S[i]*(1 if C is None else C[i]) \
-    for i in range(nbSup))) 
+    for i in range(nbSup)))
   rc = s.Solve()
   Suppliers = [i for i in range(nbSup) if SolVal(S[i])>0]
   Parts = [[i for i in range(nbSup) \

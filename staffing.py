@@ -1,4 +1,6 @@
 from random import randint, uniform
+
+
 def gen_data(m,n,n0):
   # m is number of time intervals, n is number of shifts
   R = [[0 for _ in range(n+1)] for _ in range(m+1)]
@@ -25,13 +27,14 @@ def gen_data(m,n,n0):
 
 from my_or_tools import ObjVal, SolVal, newSolver
 
+
 def solve_model(M,nf,Q=None,P=None,no_part=False):
-  s = newSolver('Staffing', True)
+  s = newSolver("Staffing", True)
   nbt,n = len(M)-1,len(M[0])-1
-  B = sum(M[t][-1] for t in range(len(M)-1)) 
-  x = [s.IntVar(0,B,'') for i in range(n)]
-  for t in range(nbt): 
-    s.Add(sum([M[t][i] * x[i] for i in range(n)])  >= M[t][-1]) 
+  B = sum(M[t][-1] for t in range(len(M)-1))
+  x = [s.IntVar(0,B,"") for i in range(n)]
+  for t in range(nbt):
+    s.Add(sum([M[t][i] * x[i] for i in range(n)])  >= M[t][-1])
   if Q:
     for i in range(n):
       s.Add(x[i] >= Q[i])

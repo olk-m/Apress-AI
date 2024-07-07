@@ -1,6 +1,7 @@
-from random import randint, choice
+from random import choice, randint
+
+
 def compute_weeks(T,P):
-  from math import ceil
   nbTeams = sum([1 for sub in T for e in sub])
   nbIntra = P[0]
   nbInter = P[1]
@@ -11,7 +12,7 @@ def compute_weeks(T,P):
   for i in range(len(T)):
     nb = len(T[i])
     d = min(d,nb)
-    nbGames += nb*(nb-1)/2 * nbIntra 
+    nbGames += nb*(nb-1)/2 * nbIntra
     for j in range(i+1,len(T)):
       nbGames += nb * len(T[j]) * nbInter
   nbWeeks = nbGames//d//nbPerWeek
@@ -39,27 +40,28 @@ def gen_data(m,n):
 
 from my_or_tools import ObjVal, SolVal, newSolver, pairs
 
+
 def solve_model(Teams,params):
   (nbIntra,nbInter,nbPerWeek,nbWeeks) = params
   nbTeams = sum([1 for sub in Teams for e in sub])
   nbDiv,Cal = len(Teams),[]
-  s = newSolver('Sports schedule', True)
-  x = [[[s.IntVar(0,1,'') if i<j else None
-        for _ in range(nbWeeks)]  
+  s = newSolver("Sports schedule", True)
+  x = [[[s.IntVar(0,1,"") if i<j else None
+        for _ in range(nbWeeks)]
         for j in range(nbTeams)] for i in range(nbTeams-1)]
-  for Div in Teams: 
+  for Div in Teams:
     for i in Div:
       for j in Div:
         if i<j:
           s.Add(sum(x[i][j][w] for w in range(nbWeeks))==nbIntra)
-  for d in range(nbDiv-1): 
+  for d in range(nbDiv-1):
     for e in range(d+1,nbDiv):
       for i in Teams[d]:
         for j in Teams[e]:
           s.Add(sum(x[i][j][w] for w in range(nbWeeks))==nbInter)
   for w in range(nbWeeks):
     for i in range(nbTeams):
-      s.Add(sum(x[i][j][w] for j in range(nbTeams) if i<j) + 
+      s.Add(sum(x[i][j][w] for j in range(nbTeams) if i<j) +
             sum(x[j][i][w] for j in range(nbTeams) if j<i )\
             <=nbPerWeek)
   Value=[x[i][j][w] for Div in Teams for i in Div for j in Div \
@@ -74,7 +76,7 @@ def solve_model(Teams,params):
   return rc,ObjVal(s),Cal
 
 def add_intra(s,Teams,nbWeeks,nbIntra,x):
-  for Div in Teams: 
+  for Div in Teams:
     for i in Div:
       for j in Div:
         if i<j:
@@ -90,7 +92,7 @@ def add_inter(s,Teams,nbDiv,nbWeeks,nbInter,x):
 def add_games_bound(s,nbWeeks,nbTeams,nbPerWeek,x):
   for w in range(nbWeeks):
     for i in range(nbTeams):
-      s.Add(sum(x[i][j][w] for j in range(nbTeams) if i<j) + 
+      s.Add(sum(x[i][j][w] for j in range(nbTeams) if i<j) +
             sum(x[j][i][w] for j in range(nbTeams) if j<i ) <= nbPerWeek)
 
 def add_objective(s,Teams,nbWeeks,x,nbIntra,nbPerWeek):
@@ -101,7 +103,7 @@ def add_objective(s,Teams,nbWeeks,x,nbIntra,nbPerWeek):
 def basic_model(s,Teams,nbTeams,nbWeeks,nbPerWeek,nbIntra,nbDiv,nbInter,cuts,x):
     add_intra(s,Teams,nbWeeks,nbIntra,x)
     add_inter(s,Teams,nbDiv,nbWeeks,nbInter,x)
-    add_games_bound(s,nbWeeks,nbTeams,nbPerWeek,x)  
+    add_games_bound(s,nbWeeks,nbTeams,nbPerWeek,x)
 
     for t,w in cuts:
       s.Add(sum(x[p[0]][p[1]][w[0]] for p in pairs(t,[])) <= w[1])
@@ -113,13 +115,13 @@ def solve_model_big(Teams,params):
   (nbIntra,nbInter,nbPerWeek,nbWeeks) = params
   nbTeams = sum([1 for sub in Teams for e in sub])
   nbDiv,cuts = len(Teams),[]
-  for iter in range(2): 
-    s = newSolver('Sports schedule', False)
-    x = [[[s.NumVar(0,1,'') if i<j else None
-          for _ in range(nbWeeks)] 
+  for iter in range(2):
+    s = newSolver("Sports schedule", False)
+    x = [[[s.NumVar(0,1,"") if i<j else None
+          for _ in range(nbWeeks)]
           for j in range(nbTeams)] for i in range(nbTeams-1)]
     basic_model(s,Teams,nbTeams,nbWeeks,nbPerWeek,nbIntra,\
-                nbDiv,nbInter,cuts,x) 
+                nbDiv,nbInter,cuts,x)
     rc = s.Solve()
     bounds = {(3,1):1, (4,1):2, (5,1):2, (5,3):7}
     if nbPerWeek <= 3:
@@ -134,17 +136,17 @@ def solve_model_big(Teams,params):
                 for l in range(k+1,nbTeams):
                   b = bounds.get((4,nbPerWeek),1000)
                   if sum([SolVal(x[p[0]][p[1]][w]) \
-                          for p in pairs([i,j,k,l],[])])>b:                  
+                          for p in pairs([i,j,k,l],[])])>b:
                     cuts.append([[i,j,k,l],[w,b]])
                   for m in range(l+1, nbTeams):
-                    b = bounds.get((5,nbPerWeek),1000)                    
+                    b = bounds.get((5,nbPerWeek),1000)
                     if sum([SolVal(x[p[0]][p[1]][w]) \
                             for p in pairs([i,j,k,l,m],[])])>b:
                       cuts.append([[i,j,k,l,m],[w,b]])
     else:
       break
-  s = newSolver('Sports schedule', True) 
-  x = [[[s.IntVar(0,1,'') if i<j else None 
+  s = newSolver("Sports schedule", True)
+  x = [[[s.IntVar(0,1,"") if i<j else None
         for _ in range(nbWeeks)]
         for j in range(nbTeams)] for i in range(nbTeams-1)]
   basic_model(s,Teams,nbTeams,nbWeeks,nbPerWeek,nbIntra,\

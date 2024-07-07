@@ -6,29 +6,46 @@ from tableutils import formatmat, printmat, wrapmat
 
 
 def main():
-  if len(sys.argv)==1:
-    return
-  elif len(sys.argv)==3:
-    random.seed(int(sys.argv[2]))
-  nbfoods=5
-  nbnutrients=4
-  header=[""]+["N"+str(i) for i in range(nbnutrients)]+["Min","Max","Cost","Solution"]
-  table=gen_diet_problem(nbfoods,nbnutrients)
-  rc,value,solution=solve_diet(table)
-  T=[0]*nbnutrients
-  C=0
-  for food in range(nbfoods):
-    C=C+solution[food]*table[food][nbnutrients+2]
-    for nutrient in range(nbnutrients):
-      T[nutrient] = T[nutrient]+solution[food]*table[food][nutrient]
-  for i in range(nbnutrients):
-    T[i]=int(round(T[i],0))
-  T=T+["","",round(C,2),""]
-  table=table+[T]
-  for i in range(nbfoods):
-    table[i]=table[i]+[round(solution[i],2)]
+    if len(sys.argv) == 1:
+        return
+    elif len(sys.argv) == 3:
+        random.seed(int(sys.argv[2]))
+    nbfoods = 5
+    nbnutrients = 4
+    header = (
+        [""]
+        + ["N" + str(i) for i in range(nbnutrients)]
+        + ["Min", "Max", "Cost", "Solution"]
+    )
+    table = gen_diet_problem(nbfoods, nbnutrients)
+    rc, value, solution = solve_diet(table)
+    T = [0] * nbnutrients
+    C = 0
+    for food in range(nbfoods):
+        C = C + solution[food] * table[food][nbnutrients + 2]
+        for nutrient in range(nbnutrients):
+            T[nutrient] = T[nutrient] + solution[food] * table[food][nutrient]
+    for i in range(nbnutrients):
+        T[i] = int(round(T[i], 0))
+    T = T + ["", "", round(C, 2), ""]
+    table = table + [T]
+    for i in range(nbfoods):
+        table[i] = table[i] + [round(solution[i], 2)]
+
+    wrapmat(
+        table, ["F" + str(i) for i in range(nbfoods)] + ["Min", "Max", "Sol"], header
+    )
+    printmat(
+        formatmat(
+            wrapmat(
+                table,
+                ["F" + str(i) for i in range(nbfoods)] + ["Min", "Max", "Sol"],
+                header,
+            ),
+            True,
+            4,
+        )
+    )
 
 
-  wrapmat(table,["F"+str(i) for i in range(nbfoods)]+["Min","Max","Sol"],header)
-  printmat(formatmat(wrapmat(table,["F"+str(i) for i in range(nbfoods)]+["Min","Max","Sol"],header),True,4))
 main()

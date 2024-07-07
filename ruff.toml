@@ -35,6 +35,15 @@ lint.ignore = [
     "S608",
     # Use `contextlib.suppress(KeyError)` instead of `try`-`except`-`pass`
     "SIM105",
+    # Naming
+    "N806",
+    "N803",
+    "FBT003",
+    "E741",
+    # Complexity
+    "C901",
+    "PLR0912",
+    "PLR0915"
 ]
 lint.select = [
     # Pyflakes
